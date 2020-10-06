@@ -1,8 +1,8 @@
 import React, { Component, useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
-import { AgGridColumn, AgGridReact } from 'ag-grid-react';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css'
 
 
 class App extends React.Component {
@@ -10,20 +10,16 @@ class App extends React.Component {
     questions: [] 
   }
 componentDidMount(){
-  axios.get("https://api.stackexchange.com/2.2/questions?site=stackoverflow")
+  axios.get("https://api.stackexchange.com/2.2/questions?order=desc&sort=activity&site=stackoverflow&filter=!L_(IB3Vfl8G6UMMFT7U7RX")
       .then(res => {
-        //  const questions =[];
-        console.log(res.data)
         this.setState({ questions: res.data.items  });
       })
 
 }
 
+
   render(){
-    // const data =[{"0": "auth1","1": "auth2"}]
-    console.log("qns",this.state.questions)
 const data = this.state.questions;
-console.log("data",data);
   
   return (
     <div className="App">
@@ -37,30 +33,23 @@ console.log("data",data);
          </tr> 
          </thead>
          <tbody>
-           {data.map(item => 
+           {data.map((item,i) => 
            <tr key={item.id}>
-             <td>{item.owner.display_name}</td>
-             <td>{item.title}</td>
-             <td>{item.creation_date}</td>
-
+             <td value={item.owner.display_name}>{item.owner.display_name}</td>
+             <td value={item.title}>{item.title}</td>
+             <td value={item.creation_date}>{item.creation_date}</td>
+           <td><Popup className="popup" id={i} align="top center"trigger={<button id={i} >Click for more details</button>}>
+           <div className="modal">   
+               <div><b>Title:</b>{item.title}</div>
+               <div><b>Link:</b>{item.link}</div>
+               <div><b>Body:</b>{item.body}</div>
+               </div>
+             </Popup>
+             </td>
            </tr>)}
          </tbody>
        </table>  
         </div>
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
     </div>
   );
 }

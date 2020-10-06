@@ -11,3 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.modal{
+  font-size: 12px;
+  width: 100%;
+  border-color: rgb(10, 10, 201);
+  border-radius: 2px gray;
+  text-align: center;
+  padding: 10px;
+}
+.popup{
+  padding-left: 50px;
+  width: 100%!important;
+}
+.App{
+  height: 100%;
+  overflow-y: scroll;
+}
