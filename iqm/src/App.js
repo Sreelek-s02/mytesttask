@@ -11,11 +11,23 @@ class App extends React.Component {
     questions: [] 
   }
 componentDidMount(){
-  axios.get("https://api.stackexchange.com/2.2/questions?order=desc&sort=activity&site=stackoverflow&filter=!L_(IB3Vfl8G6UMMFT7U7RX")
+  let question = [];
+  let allQuestions = () => {
+  axios.get("https://api.stackexchange.com/2.2/questions?order=desc&all=true&sort=activity&site=stackoverflow&filter=!L_(IB3Vfl8G6UMMFT7U7RX")
       .then(res => {
-        this.setState({ questions: res.data.items  });
+        let qn = res.data.items;
+        if(!res.data.has_more){
+          question.push.apply(question,qn);
+        this.setState({ questions: question });
+      }else{
+        question.push.apply(question,qn);
+        allQuestions(qn[qn.length-1])
+      }
+      this.setState({ questions: question  });
       })
-
+   
+    }
+    allQuestions();
 }
 
 

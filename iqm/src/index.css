@@ -19,6 +19,7 @@ code {
   text-align: left;
   padding: 10px;
   background-color: lightgrey;
+  display: block;
 }
 .popup{
   padding-left: 50px;
