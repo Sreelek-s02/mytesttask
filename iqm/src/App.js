@@ -3,6 +3,7 @@ import './App.css';
 import axios from 'axios';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css'
+import {createMarkup} from "./flterHTML.js"
 
 
 class App extends React.Component {
@@ -26,7 +27,7 @@ const data = this.state.questions;
       <div className="col-12" >
        <table className="table"> 
        <thead> 
-       <tr>
+       <tr className="rowBorder">
          <th>Author</th>
          <th>Title</th>
          <th>Creation Date</th>
@@ -36,16 +37,14 @@ const data = this.state.questions;
            {data.map((item,i) => 
            <tr key={item.id}>
              <td value={item.owner.display_name}>{item.owner.display_name}</td>
-             <td value={item.title}>{item.title}</td>
-             <td value={item.creation_date}>{item.creation_date}</td>
-           <td><Popup className="popup" id={i} align="top center"trigger={<button id={i} >Click for more details</button>}>
-           <div className="modal">   
-               <div><b>Title:</b>{item.title}</div>
-               <div><b>Link:</b>{item.link}</div>
-               <div><b>Body:</b>{item.body}</div>
+             <Popup className="popup" id={i} align="top center"trigger={<td value={item.title}>{item.title}</td>}>
+             <div className="modal">   
+               <div><h2>{item.title}</h2></div>
+               <div><a style={{"outline": "none"}} href={item.link}>{item.link}</a></div>
+               <div><span dangerouslySetInnerHTML={createMarkup(item.body)}/></div>
                </div>
              </Popup>
-             </td>
+             <td value={item.creation_date}>{item.creation_date}</td>
            </tr>)}
          </tbody>
        </table>  

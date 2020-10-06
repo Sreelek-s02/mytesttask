@@ -16,8 +16,9 @@ code {
   width: 100%;
   border-color: rgb(10, 10, 201);
   border-radius: 2px gray;
-  text-align: center;
+  text-align: left;
   padding: 10px;
+  background-color: lightgrey;
 }
 .popup{
   padding-left: 50px;
@@ -26,4 +27,11 @@ code {
 .App{
   height: 100%;
   overflow-y: scroll;
+}
+.table{
+  text-align: left;
+}
+
+table,th,td {
+  border: 1px solid black;
 }
